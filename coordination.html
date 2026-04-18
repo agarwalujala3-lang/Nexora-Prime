@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NEXORA PRIME Coordination Center: multi-team queue management and resource allocation from live reports.">
+  <meta name="theme-color" content="#08111f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>NEXORA PRIME | Coordination Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="portal.css">
+</head>
+<body class="theme-nebula portal-page" data-page="coordination">
+  <div class="portal-bg"></div>
+
+  <header class="site-header portal-shell">
+    <div class="brand">
+      <div class="brand-icon brand-mark-3d" aria-hidden="true">
+        <span class="brand-mark-core">NX</span>
+        <span class="brand-ring ring-one"></span>
+        <span class="brand-ring ring-two"></span>
+        <span class="brand-ring ring-three"></span>
+        <span class="brand-glow"></span>
+      </div>
+      <div>
+        <h1>NEXORA PRIME</h1>
+        <p>Coordination Center</p>
+      </div>
+    </div>
+    <nav class="site-nav">
+      <a href="index.html">Command Center</a>
+      <a href="network.html">Network Hub</a>
+      <a href="community.html">Citizen Portal</a>
+      <a href="coordination.html">Coordination</a>
+    </nav>
+    <div class="header-actions">
+      <button id="globalThemeToggle" class="ghost-btn" type="button">Theme</button>
+    </div>
+  </header>
+
+  <main class="portal-main portal-shell">
+    <section class="portal-hero">
+      <h2>Multi-Team Response Coordination Board</h2>
+      <p>Prioritize live reports into critical/high/medium lanes and calculate real resource readiness for command decisions.</p>
+      <div class="portal-hero-meta">
+        <span class="meta-chip">Priority Queue Engine</span>
+        <span class="meta-chip">Resource Match Score</span>
+        <span id="portalOnlineStatus" class="status-pill">Network online and synced</span>
+      </div>
+    </section>
+
+    <section class="portal-grid">
+      <article class="portal-card">
+        <h3>Priority Lanes</h3>
+        <p>Incoming community reports are sorted by urgency and potential impact.</p>
+        <div class="priority-grid">
+          <div class="priority-column">
+            <h4>Critical</h4>
+            <ul id="coordCritical"></ul>
+          </div>
+          <div class="priority-column">
+            <h4>High</h4>
+            <ul id="coordHigh"></ul>
+          </div>
+          <div class="priority-column">
+            <h4>Medium</h4>
+            <ul id="coordMedium"></ul>
+          </div>
+        </div>
+        <div class="portal-actions">
+          <button id="coordRefresh" class="btn-secondary" type="button">Refresh Queues</button>
+        </div>
+      </article>
+
+      <article class="portal-card">
+        <h3>Resource Allocation Calculator</h3>
+        <p>Estimate readiness using available units and active queue pressure.</p>
+        <div class="portal-row">
+          <input id="coordWaterUnits" class="portal-input" type="number" min="0" value="520" placeholder="Water units">
+          <input id="coordMedicalUnits" class="portal-input" type="number" min="0" value="420" placeholder="Medical kits">
+          <input id="coordVolunteerUnits" class="portal-input" type="number" min="0" value="260" placeholder="Volunteer slots">
+        </div>
+        <div class="portal-actions">
+          <button id="coordRunAllocation" class="btn-primary" type="button">Run Allocation</button>
+        </div>
+        <p id="coordAllocationOutput" class="status-pill">Run allocation to compute readiness score.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer portal-shell">
+    <p>© 2026 NEXORA PRIME Coordination Center</p>
+  </footer>
+
+  <script src="portal.js"></script>
+</body>
+</html>

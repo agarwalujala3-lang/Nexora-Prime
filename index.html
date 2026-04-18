@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NEXORA PRIME: multipage emergency intelligence website with premium UI, AI assistance, and real-world response workflows.">
+  <meta name="theme-color" content="#08111f">
+  <title>NEXORA PRIME | Emergency Intelligence Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="home">
+  <a class="skip-link" href="#mainContent">Skip to main content</a>
+  <div id="bootSplash" class="boot-splash" aria-hidden="true">
+    <div class="boot-core">
+      <strong>NEXORA PRIME</strong>
+      <span>Initializing response network intelligence...</span>
+      <div class="boot-track"></div>
+    </div>
+  </div>
+
+  <header class="topbar-wrap">
+    <div class="page-shell topbar">
+      <a class="brand" href="index.html" aria-label="Nexora Prime Home">
+        <div class="brand-mark brand-mark-3d" aria-hidden="true">
+          <span class="brand-mark-core">NX</span>
+          <span class="brand-ring ring-one"></span>
+          <span class="brand-ring ring-two"></span>
+          <span class="brand-ring ring-three"></span>
+          <span class="brand-glow"></span>
+        </div>
+        <div class="brand-copy">
+          <strong>NEXORA PRIME</strong>
+          <span>Emergency Intelligence Platform</span>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <a href="index.html" data-nav="home">Home</a>
+        <a href="network.html" data-nav="network">Network Hub</a>
+        <a href="community.html" data-nav="community">Citizen Portal</a>
+        <a href="coordination.html" data-nav="coordination">Coordination Center</a>
+      </nav>
+
+      <div class="header-actions">
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle light and dark theme">Light</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="mainContent" class="main page-shell" tabindex="-1">
+    <section class="hero" aria-labelledby="heroTitle">
+      <div>
+        <p class="eyebrow">Major Project Website</p>
+        <h1 id="heroTitle">Calm design. Fast action. Real emergency workflows.</h1>
+        <p>
+          NEXORA PRIME is built as a real multipage platform: citizens can report emergencies,
+          responders can discover nearby resources, and coordinators can prioritize live queues.
+          The interface is cinematic but practical, so both coders and non-coders can use it instantly.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="community.html">Report Emergency</a>
+          <a class="btn secondary" href="network.html">Find Resources</a>
+          <a class="btn secondary" href="coordination.html">Open Coordination</a>
+          <button id="showcaseStartBtn" class="btn secondary" type="button">Start Showcase Mode</button>
+        </div>
+        <p id="showcaseStatus" class="status" role="status" aria-live="polite">Showcase mode is ready. Start for guided demo flow.</p>
+        <ul class="hero-list">
+          <li>Different calming 3D atmosphere on every page.</li>
+          <li>Dark and light themes with one-click switch.</li>
+          <li>Shared data flow between all modules via local sync.</li>
+        </ul>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="glow-ring r1"></div>
+        <div class="glow-ring r2"></div>
+        <div class="cube">
+          <span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page-grid two emergency-grid" id="realEmergency">
+      <article class="panel emergency-panel">
+        <p class="eyebrow">Real Emergency Console (India)</p>
+        <h2>Use this in actual distress. One tap, not a long form.</h2>
+        <p>Select a scenario and trigger SOS. Live location is fetched automatically after permission.</p>
+
+        <div class="emergency-scenarios">
+          <button class="btn primary emergency-scenario-btn" type="button" data-sos-scenario="road_accident">Road Accident</button>
+          <button class="btn primary emergency-scenario-btn" type="button" data-sos-scenario="attack">Attack / Assault</button>
+          <button class="btn primary emergency-scenario-btn" type="button" data-sos-scenario="cab_risk">Unsafe Cab / Lock Risk</button>
+        </div>
+
+        <div class="field" style="margin-top:0.64rem;">
+          <label for="emergencyDetails">Optional details (landmark, vehicle, attacker/cab info)</label>
+          <textarea id="emergencyDetails" class="textarea" placeholder="Optional: black cab DL 01 XX 1234 going wrong direction, door lock not opening"></textarea>
+        </div>
+
+        <div class="actions emergency-actions">
+          <button id="emergencyRunBtn" class="btn primary" type="button">One-Tap SOS (Auto)</button>
+          <button id="emergencyCallBtn" class="btn secondary" type="button">Call 112 Now</button>
+          <button id="emergencySmsBtn" class="btn secondary" type="button">Send to Contacts</button>
+          <button id="emergencyCopyBtn" class="btn secondary" type="button">Copy SOS Text</button>
+        </div>
+        <p class="note-line">Privacy guard: exact location goes to trusted/official channels, public broadcast is redacted to area-level only.</p>
+        <p class="note-line">Official ERSS 112 system: <a href="https://www.112.gov.in/about" target="_blank" rel="noopener noreferrer">112.gov.in</a></p>
+
+        <p id="emergencyStatus" class="status" role="status" aria-live="polite">Emergency console ready. Tap One-Tap SOS to auto-capture location and start alerts.</p>
+        <pre id="emergencyPayloadPreview" class="assistant-output">No SOS payload generated yet.</pre>
+      </article>
+
+      <article class="panel emergency-panel">
+        <p class="eyebrow">Protection Tools</p>
+        <h3>Trusted contacts + Trip Guard + Voice SOS</h3>
+        <p>Trip Guard auto-triggers SOS if you miss safety check-ins during travel.</p>
+
+        <div class="form-grid emergency-contact-grid">
+          <div class="field">
+            <label for="trustedContact1">Trusted Contact 1</label>
+            <input id="trustedContact1" class="input" type="tel" inputmode="tel" placeholder="+91XXXXXXXXXX">
+          </div>
+          <div class="field">
+            <label for="trustedContact2">Trusted Contact 2</label>
+            <input id="trustedContact2" class="input" type="tel" inputmode="tel" placeholder="+91XXXXXXXXXX">
+          </div>
+          <div class="field">
+            <label for="trustedContact3">Trusted Contact 3</label>
+            <input id="trustedContact3" class="input" type="tel" inputmode="tel" placeholder="+91XXXXXXXXXX">
+          </div>
+          <div class="field">
+            <label for="tripGuardMinutes">Trip Guard check-in interval</label>
+            <select id="tripGuardMinutes" class="select">
+              <option value="1">1 minute</option>
+              <option value="2" selected>2 minutes</option>
+              <option value="3">3 minutes</option>
+              <option value="5">5 minutes</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button id="saveContactsBtn" class="btn secondary" type="button">Save Contacts</button>
+          <button id="tripGuardStartBtn" class="btn primary" type="button">Start Trip Guard</button>
+          <button id="tripGuardSafeBtn" class="btn secondary" type="button">I'm Safe (Reset)</button>
+          <button id="tripGuardStopBtn" class="btn secondary" type="button">Stop Trip Guard</button>
+          <button id="voiceSosToggle" class="btn secondary" type="button" aria-pressed="false">Voice SOS: Off</button>
+        </div>
+
+        <p id="tripGuardStatus" class="status" role="status" aria-live="polite">Trip Guard is inactive.</p>
+        <p id="tripGuardCountdown" class="assistant-action-status">Countdown: --</p>
+      </article>
+    </section>
+
+    <section class="page-grid">
+      <article class="panel">
+        <p class="eyebrow">Platform Modules</p>
+        <h2>Clear multipage structure for real usage</h2>
+        <p>Each module is focused, so users are never confused by one giant scrolling page.</p>
+        <div class="module-grid">
+          <a class="module-card" href="community.html">
+            <strong>Citizen Portal</strong>
+            <span>Submit emergency reports in seconds with guided fields.</span>
+          </a>
+          <a class="module-card" href="network.html">
+            <strong>Network Hub</strong>
+            <span>Filter hospitals, rescue teams, shelters, and utility nodes.</span>
+          </a>
+          <a class="module-card" href="coordination.html">
+            <strong>Coordination Center</strong>
+            <span>Sort queue by urgency and calculate readiness in real time.</span>
+          </a>
+          <a class="module-card" href="index.html#quickReportPanel">
+            <strong>Command Entry</strong>
+            <span>Log incidents here and instantly sync to all pages.</span>
+          </a>
+        </div>
+      </article>
+    </section>
+
+    <section class="page-grid two">
+      <article class="panel" id="quickReportPanel">
+        <p class="eyebrow">Quick Command Entry</p>
+        <h3>Log emergency report from homepage</h3>
+        <p>Useful when command operators need to create cases before routing teams.</p>
+
+        <form id="quickReportForm">
+          <div class="form-grid">
+            <div class="field">
+              <label for="quickDistrict">District</label>
+              <select id="quickDistrict" class="select" required>
+                <option value="Metro Core">Metro Core</option>
+                <option value="Harbor Point">Harbor Point</option>
+                <option value="North Transit">North Transit</option>
+                <option value="Riverside">Riverside</option>
+                <option value="Medical Cluster">Medical Cluster</option>
+                <option value="Canal Edge">Canal Edge</option>
+                <option value="University Loop">University Loop</option>
+                <option value="South Gardens">South Gardens</option>
+                <option value="West Belt">West Belt</option>
+                <option value="Freight Yard">Freight Yard</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="quickType">Emergency Type</label>
+              <select id="quickType" class="select" required>
+                <option value="fire">Fire</option>
+                <option value="flood">Flood</option>
+                <option value="health">Health Emergency</option>
+                <option value="outage">Power Outage</option>
+                <option value="transit">Transit Block</option>
+                <option value="weather">Severe Weather</option>
+                <option value="accident">Road Accident</option>
+                <option value="safety">Attack / Cab Risk</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="quickUrgency">Urgency</label>
+              <select id="quickUrgency" class="select" required>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+                <option value="critical">Critical</option>
+                <option value="low">Low</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="quickPeople">People Affected</label>
+              <input id="quickPeople" class="input" type="number" min="1" max="50000" value="20" required>
+            </div>
+          </div>
+
+          <div class="field" style="margin-top:0.62rem;">
+            <label for="quickNotes">Situation Notes</label>
+            <textarea id="quickNotes" class="textarea" placeholder="Landmark, hazard visibility, injuries, blocked route, etc."></textarea>
+          </div>
+
+          <div class="actions">
+            <button class="btn primary" type="submit">Create Emergency Case</button>
+            <a class="btn secondary" href="coordination.html">Open Queue Board</a>
+          </div>
+        </form>
+
+        <p id="quickReportStatus" class="status" role="status" aria-live="polite">No new emergency case submitted yet.</p>
+      </article>
+
+      <article class="panel">
+        <p class="eyebrow">Operational Readiness</p>
+        <h3>What this system solves in real life</h3>
+        <ul class="list">
+          <li>
+            <strong>Single-source incident signal</strong>
+            <span>No scattered messages. Reports are captured and synced across modules.</span>
+          </li>
+          <li>
+            <strong>Faster resource matching</strong>
+            <span>Network Hub filters nearest suitable teams using district, type, and capacity.</span>
+          </li>
+          <li>
+            <strong>Priority-first coordination</strong>
+            <span>Critical and high-impact cases become visible immediately for dispatch teams.</span>
+          </li>
+          <li>
+            <strong>Usable under pressure</strong>
+            <span>Simple forms, large controls, clear wording, and minimal decision friction.</span>
+          </li>
+        </ul>
+
+        <div class="kpi-grid">
+          <div class="kpi">
+            <small>Estimated triage speed gain</small>
+            <strong data-counter="87">0%</strong>
+          </div>
+          <div class="kpi">
+            <small>Resource-fit confidence</small>
+            <strong data-counter="93">0%</strong>
+          </div>
+          <div class="kpi">
+            <small>Queue visibility score</small>
+            <strong data-counter="96">0%</strong>
+          </div>
+          <div class="kpi">
+            <small>Response readiness</small>
+            <strong data-counter="91">0%</strong>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="page-grid">
+      <article class="panel">
+        <p class="eyebrow">How To Use</p>
+        <h3>Simple flow for every person</h3>
+        <ul class="list">
+          <li><strong>1. Citizens report</strong><span>Use Citizen Portal to create an incident with urgency and notes.</span></li>
+          <li><strong>2. Network finds responders</strong><span>Open Network Hub to filter nearest agencies and capacity.</span></li>
+          <li><strong>3. Coordination dispatches</strong><span>Use priority lanes and readiness calculator for action.</span></li>
+        </ul>
+      </article>
+    </section>
+  </main>
+
+  <aside id="assistantDock" class="assistant-dock is-compact" aria-label="Rex AI Assistant">
+    <div class="assistant-head">
+      <div class="assistant-head-copy">
+        <h4>Rex AI Assistant</h4>
+        <p id="assistantModeText">Compact mode active. Expand for deep response planner.</p>
+      </div>
+      <button id="assistantToggleView" class="btn secondary assistant-toggle" type="button" aria-controls="assistantBody" aria-expanded="false">Expand</button>
+    </div>
+
+    <div id="assistantBody" class="assistant-body">
+      <p>Describe the incident. Rex will generate phased strategy, responder chain, and fallback plan.</p>
+      <div class="assistant-row">
+        <input id="assistantInput" class="input" type="text" autocomplete="off" aria-describedby="assistantModeText assistantActionStatus" placeholder="Example: fire in metro core with 50 people trapped on top floor">
+        <button id="assistantSend" class="btn primary" type="button">Analyze</button>
+      </div>
+      <div class="actions assistant-tools" style="margin-top:0.48rem;">
+        <button id="assistantDepthToggle" class="btn secondary" type="button" aria-label="Toggle deep reasoning mode" aria-pressed="true">Deep Mode: On</button>
+        <button class="btn secondary quick-prompt" data-prompt="fire in metro core 70 people critical with smoke and trapped families" type="button">Fire</button>
+        <button class="btn secondary quick-prompt" data-prompt="road accident in riverside 12 people high near bridge at night" type="button">Accident</button>
+        <button class="btn secondary quick-prompt" data-prompt="flood warning near harbor point medium heavy rain water rising" type="button">Flood</button>
+      </div>
+      <div id="assistantOutput" class="assistant-output" role="status" aria-live="polite">Rex is online. Expand panel and send a situation for deep emergency reasoning.</div>
+      <div class="assistant-action-row">
+        <button id="assistantApplyForm" class="btn secondary" type="button">Apply To Form</button>
+        <button id="assistantCreateCase" class="btn primary" type="button">Create Case</button>
+        <button id="assistantOpenNetwork" class="btn secondary" type="button">Open Network</button>
+        <button id="assistantOpenCoordination" class="btn secondary" type="button">Open Coordination</button>
+        <button id="assistantCopyPlan" class="btn secondary" type="button">Copy Plan</button>
+      </div>
+      <p id="assistantActionStatus" class="assistant-action-status" role="status" aria-live="polite">No action taken yet.</p>
+    </div>
+  </aside>
+
+  <footer class="footer page-shell">
+    <p>© 2026 NEXORA PRIME • Multipage emergency intelligence website project</p>
+  </footer>
+
+  <script src="relay.config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

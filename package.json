@@ -1,0 +1,30 @@
+{
+  "name": "nexora-prime-major-project",
+  "version": "1.0.0",
+  "description": "NEXORA PRIME: advanced multipage emergency-intelligence showcase with premium UI/UX and Wake Up Rex voice SOS.",
+  "main": "app.js",
+  "private": true,
+  "scripts": {
+    "check:js": "node --check app.js && node --check portal.js",
+    "dev": "python -m http.server 4174",
+    "live:start": "powershell -ExecutionPolicy Bypass -File .\\launch-live.ps1",
+    "live:status": "powershell -ExecutionPolicy Bypass -File .\\live-status.ps1",
+    "live:stop": "powershell -ExecutionPolicy Bypass -File .\\stop-live.ps1",
+    "deploy:vercel": ".\\node_modules\\.bin\\vercel.cmd --prod --yes"
+  },
+  "keywords": [
+    "emergency-response",
+    "major-project",
+    "ui-ux",
+    "voice-sos",
+    "pwa"
+  ],
+  "author": "AKSHYA",
+  "license": "MIT",
+  "devDependencies": {
+    "localtunnel": "^2.0.2",
+    "serve": "^14.2.5",
+    "tunnelmole": "^2.2.4",
+    "vercel": "^51.4.0"
+  }
+}

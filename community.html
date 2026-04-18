@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NEXORA PRIME Citizen Portal: submit emergency reports and receive instant actionable guidance.">
+  <meta name="theme-color" content="#08111f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>NEXORA PRIME | Citizen Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="portal.css">
+</head>
+<body class="theme-nebula portal-page" data-page="community">
+  <div class="portal-bg"></div>
+
+  <header class="site-header portal-shell">
+    <div class="brand">
+      <div class="brand-icon brand-mark-3d" aria-hidden="true">
+        <span class="brand-mark-core">NX</span>
+        <span class="brand-ring ring-one"></span>
+        <span class="brand-ring ring-two"></span>
+        <span class="brand-ring ring-three"></span>
+        <span class="brand-glow"></span>
+      </div>
+      <div>
+        <h1>NEXORA PRIME</h1>
+        <p>Citizen Help Portal</p>
+      </div>
+    </div>
+    <nav class="site-nav">
+      <a href="index.html">Command Center</a>
+      <a href="network.html">Network Hub</a>
+      <a href="community.html">Citizen Portal</a>
+      <a href="coordination.html">Coordination</a>
+    </nav>
+    <div class="header-actions">
+      <button id="globalThemeToggle" class="ghost-btn" type="button">Theme</button>
+    </div>
+  </header>
+
+  <main class="portal-main portal-shell">
+    <section class="portal-hero">
+      <h2>Public Incident Reporting + Instant Safety Guidance</h2>
+      <p>Citizens can quickly report emergencies in plain language. Reports are synced to the network and coordination centers for immediate action.</p>
+      <div class="portal-hero-meta">
+        <span class="meta-chip">1-Click Community Report</span>
+        <span class="meta-chip">Auto Guidance</span>
+        <span id="portalOnlineStatus" class="status-pill">Network online and synced</span>
+      </div>
+    </section>
+
+    <section class="portal-grid">
+      <article class="portal-card">
+        <h3>Submit Incident Report</h3>
+        <p>Fast form for public users during stress situations.</p>
+
+        <form id="communityReportForm">
+          <div class="portal-row">
+            <select id="communityDistrict" class="portal-select" required>
+              <option value="Metro Core">Metro Core</option>
+              <option value="Harbor Point">Harbor Point</option>
+              <option value="North Transit">North Transit</option>
+              <option value="Riverside">Riverside</option>
+              <option value="Medical Cluster">Medical Cluster</option>
+              <option value="Canal Edge">Canal Edge</option>
+              <option value="University Loop">University Loop</option>
+              <option value="South Gardens">South Gardens</option>
+              <option value="West Belt">West Belt</option>
+              <option value="Freight Yard">Freight Yard</option>
+            </select>
+            <select id="communityType" class="portal-select" required>
+              <option value="flood">Flood</option>
+              <option value="fire">Fire</option>
+              <option value="health">Health Emergency</option>
+              <option value="outage">Power Outage</option>
+              <option value="transit">Transit Block</option>
+              <option value="weather">Severe Weather</option>
+            </select>
+            <select id="communityUrgency" class="portal-select" required>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+              <option value="critical">Critical</option>
+            </select>
+          </div>
+          <input id="communityPeople" class="portal-input" type="number" min="1" max="50000" placeholder="Estimated people affected" required>
+          <textarea id="communityNotes" class="portal-textarea" placeholder="Landmark, blocked routes, medical needs, or other notes"></textarea>
+          <div class="portal-actions">
+            <button class="btn-primary" type="submit">Submit Emergency Report</button>
+          </div>
+        </form>
+
+        <pre id="communityGuidance" class="assist-output">Submit a report to receive immediate safety instructions and sync to emergency teams.</pre>
+      </article>
+
+      <article class="portal-card">
+        <h3>Recent Community Reports</h3>
+        <p>Latest alerts captured from public submissions.</p>
+        <div class="portal-actions">
+          <button id="communityClearResolved" class="btn-secondary" type="button">Mark All Resolved</button>
+        </div>
+        <ul id="communityReportList" class="report-list"></ul>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer portal-shell">
+    <p>© 2026 NEXORA PRIME Citizen Portal</p>
+  </footer>
+
+  <script src="portal.js"></script>
+</body>
+</html>

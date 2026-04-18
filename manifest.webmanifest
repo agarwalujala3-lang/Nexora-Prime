@@ -1,0 +1,18 @@
+{
+  "name": "NEXORA PRIME Emergency Network",
+  "short_name": "NEXORA PRIME",
+  "description": "Advanced emergency-response command platform with network, citizen, and coordination modules.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#07101d",
+  "theme_color": "#07101d",
+  "icons": [
+    {
+      "src": "./nexora-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

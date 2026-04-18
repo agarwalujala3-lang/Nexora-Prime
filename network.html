@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NEXORA PRIME Network Hub: real-time emergency resource network and dispatch readiness.">
+  <meta name="theme-color" content="#08111f">
+  <link rel="manifest" href="manifest.webmanifest">
+  <title>NEXORA PRIME | Network Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="portal.css">
+</head>
+<body class="theme-nebula portal-page" data-page="network">
+  <div class="portal-bg"></div>
+
+  <header class="site-header portal-shell">
+    <div class="brand">
+      <div class="brand-icon brand-mark-3d" aria-hidden="true">
+        <span class="brand-mark-core">NX</span>
+        <span class="brand-ring ring-one"></span>
+        <span class="brand-ring ring-two"></span>
+        <span class="brand-ring ring-three"></span>
+        <span class="brand-glow"></span>
+      </div>
+      <div>
+        <h1>NEXORA PRIME</h1>
+        <p>Emergency Network Hub</p>
+      </div>
+    </div>
+    <nav class="site-nav">
+      <a href="index.html">Command Center</a>
+      <a href="network.html">Network Hub</a>
+      <a href="community.html">Citizen Portal</a>
+      <a href="coordination.html">Coordination</a>
+    </nav>
+    <div class="header-actions">
+      <button id="globalThemeToggle" class="ghost-btn" type="button">Theme</button>
+    </div>
+  </header>
+
+  <main class="portal-main portal-shell">
+    <section class="portal-hero">
+      <h2>Citywide Multi-Agency Resource Network</h2>
+      <p>Live directory for hospitals, shelters, rescue teams, utilities, logistics, and volunteers. Filter fast, identify capacity gaps, and deploy nearest support in seconds.</p>
+      <div class="portal-hero-meta">
+        <span class="meta-chip">Connected District Coverage</span>
+        <span class="meta-chip">Cross-Agency Response Mesh</span>
+        <span id="portalOnlineStatus" class="status-pill">Network online and synced</span>
+      </div>
+    </section>
+
+    <section class="portal-grid">
+      <article class="portal-card">
+        <h3>Resource Registry</h3>
+        <p>Filter by district, service type, and minimum capacity for rapid lookup.</p>
+        <div class="portal-row">
+          <select id="networkDistrictFilter" class="portal-select">
+            <option value="all">All Districts</option>
+            <option value="Metro Core">Metro Core</option>
+            <option value="Harbor Point">Harbor Point</option>
+            <option value="North Transit">North Transit</option>
+            <option value="Riverside">Riverside</option>
+            <option value="Medical Cluster">Medical Cluster</option>
+            <option value="Canal Edge">Canal Edge</option>
+            <option value="University Loop">University Loop</option>
+            <option value="South Gardens">South Gardens</option>
+            <option value="West Belt">West Belt</option>
+            <option value="Freight Yard">Freight Yard</option>
+          </select>
+          <select id="networkTypeFilter" class="portal-select">
+            <option value="all">All Types</option>
+            <option value="medical">Medical</option>
+            <option value="rescue">Rescue</option>
+            <option value="utility">Utility</option>
+            <option value="shelter">Shelter</option>
+            <option value="logistics">Logistics</option>
+            <option value="volunteer">Volunteer</option>
+          </select>
+          <select id="networkCapacityFilter" class="portal-select">
+            <option value="all">Any Capacity</option>
+            <option value="20">20+</option>
+            <option value="40">40+</option>
+            <option value="60">60+</option>
+            <option value="100">100+</option>
+          </select>
+        </div>
+        <input id="networkSearch" class="portal-input" type="text" placeholder="Search by resource, district, or type">
+
+        <div class="network-table-wrap">
+          <table class="network-table">
+            <thead>
+              <tr>
+                <th>Resource Node</th>
+                <th>Type</th>
+                <th>District</th>
+                <th>Capacity</th>
+                <th>ETA</th>
+                <th>Contact</th>
+              </tr>
+            </thead>
+            <tbody id="networkTableBody"></tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="portal-card">
+        <h3>Operational Snapshot</h3>
+        <p>Network-level KPIs and instant recommendation from current citizen reports.</p>
+        <div class="network-kpi-grid">
+          <div class="network-kpi">
+            <p>Active Nodes</p>
+            <strong id="networkKpiActive">0</strong>
+          </div>
+          <div class="network-kpi">
+            <p>Total Capacity</p>
+            <strong id="networkKpiCapacity">0</strong>
+          </div>
+          <div class="network-kpi">
+            <p>Avg ETA</p>
+            <strong id="networkKpiEta">0 min</strong>
+          </div>
+          <div class="network-kpi">
+            <p>Open Reports</p>
+            <strong id="networkKpiReports">0</strong>
+          </div>
+        </div>
+
+        <div class="portal-actions">
+          <button id="generateNetworkRecommendation" class="btn-primary" type="button">Generate Dispatch Recommendation</button>
+        </div>
+        <p id="networkRecommendation" class="status-pill">Analyzing current reports...</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer portal-shell">
+    <p>© 2026 NEXORA PRIME Network Hub</p>
+  </footer>
+
+  <script src="portal.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+relay-backend/node_modules/
+
+# Local runtime relay secrets and deployment state
+relay.config.js
+relay-backend/.env
+relay-backend/.relay-live.json
+relay-backend/.lambda-env.json
+relay-backend/.invoke-health.json
+relay-backend/.inline-policy.json
+relay-backend/.trust-policy.json
+
+# Generated deployment artifacts
+relay-backend/lambda.zip
+relay-backend/lambda-min.zip
+
+# Local live/tunnel state
+.deploy-site/
+.cloudfront-state.json
+.live-state.json
+.live-serve.out.log
+.live-serve.err.log
+.live-tunnel.out.log
+.live-tunnel.err.log
+.ltunnel.out.log
+.ltunnel.err.log
+.pyserve.out.log
+.pyserve.err.log
+.serve.out.log
+.serve.err.log
+.tunnel.out.log
+.tunnel.err.log
+
+# OS/editor
+.DS_Store
+Thumbs.db
