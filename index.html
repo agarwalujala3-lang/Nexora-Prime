@@ -340,7 +340,27 @@
     <p>© 2026 NEXORA PRIME • Multipage emergency intelligence website project</p>
   </footer>
 
-  <script src="relay.config.js"></script>
-  <script src="app.js"></script>
+  <script src="relay.runtime.js"></script>
+  <script>
+    (function initializeNexoraScripts() {
+      const startApp = () => {
+        if (window.__nexoraAppLoaded) {
+          return;
+        }
+        window.__nexoraAppLoaded = true;
+        const appScript = document.createElement("script");
+        appScript.src = "app.js";
+        appScript.async = false;
+        document.body.appendChild(appScript);
+      };
+
+      const privateConfig = document.createElement("script");
+      privateConfig.src = "relay.config.js";
+      privateConfig.async = false;
+      privateConfig.onload = startApp;
+      privateConfig.onerror = startApp;
+      document.head.appendChild(privateConfig);
+    })();
+  </script>
 </body>
 </html>

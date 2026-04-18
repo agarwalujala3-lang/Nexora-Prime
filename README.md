@@ -2,6 +2,7 @@
 ### Real-time Emergency Intelligence Platform (Major Project)
 
 [Live CloudFront](https://d3nn99bka7k1je.cloudfront.net)
+[GitHub Repo](https://github.com/agarwalujala3-lang/Nexora-Prime)
 
 NEXORA PRIME is a **real-use emergency workflow web platform** designed for situations where seconds matter:
 - road accidents,
@@ -88,6 +89,8 @@ npm run live:stop
 ```
 
 ## Relay configuration
+The app now works cleanly even without private relay config (thanks to `relay.runtime.js` defaults).
+
 1. Copy `relay.config.example.js` to `relay.config.js`
 2. Set endpoint/key values for your environment
 3. Keep `relay.config.js` private (already gitignored)

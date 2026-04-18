@@ -1,4 +1,4 @@
-const CACHE_NAME = "nexora-prime-v9";
+const CACHE_NAME = "nexora-prime-v10";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -7,7 +7,7 @@ const APP_SHELL = [
   "./coordination.html",
   "./styles.css",
   "./portal.css",
-  "./relay.config.js",
+  "./relay.runtime.js",
   "./app.js",
   "./portal.js",
   "./manifest.webmanifest",
