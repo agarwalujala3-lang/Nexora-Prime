@@ -103,12 +103,17 @@
 
         <div class="actions emergency-actions">
           <button id="emergencyRunBtn" class="btn primary" type="button">One-Tap SOS (Auto)</button>
+          <button id="emergencyOfficialBlastBtn" class="btn primary" type="button">Official Blast (SOS + Call)</button>
           <button id="emergencyCallBtn" class="btn secondary" type="button">Call 112 Now</button>
+          <button id="emergencyCallRoadBtn" class="btn secondary" type="button">Call 1033 Highway</button>
+          <button id="emergencyCallMedicalBtn" class="btn secondary" type="button">Call 108 Ambulance</button>
+          <button id="emergencyNearbyHelpBtn" class="btn secondary" type="button">Find Nearby Responders</button>
           <button id="emergencySmsBtn" class="btn secondary" type="button">Send to Contacts</button>
           <button id="emergencyCopyBtn" class="btn secondary" type="button">Copy SOS Text</button>
         </div>
+        <p id="emergencyOfficialPlan" class="status-pill">Official call order: 112 (ERSS National Emergency) -> 108 (Ambulance Service).</p>
         <p class="note-line">Privacy guard: exact location goes to trusted/official channels, public broadcast is redacted to area-level only.</p>
-        <p class="note-line">Official ERSS 112 system: <a href="https://www.112.gov.in/about" target="_blank" rel="noopener noreferrer">112.gov.in</a></p>
+        <p class="note-line">Official channels: <a href="https://www.112.gov.in/about" target="_blank" rel="noopener noreferrer">ERSS 112</a> | <a href="https://nhai.gov.in/#/" target="_blank" rel="noopener noreferrer">NHAI 1033</a> | State ambulance 108</p>
 
         <p id="emergencyStatus" class="status" role="status" aria-live="polite">Emergency console ready. Tap One-Tap SOS to auto-capture location and start alerts.</p>
         <pre id="emergencyPayloadPreview" class="assistant-output">No SOS payload generated yet.</pre>

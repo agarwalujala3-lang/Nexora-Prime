@@ -6,6 +6,13 @@ const ASSISTANT_DEPTH_KEY = "nexora-assistant-depth";
 const ASSISTANT_CONTEXT_KEY = "nexora-assistant-context";
 const TRUSTED_CONTACTS_KEY = "nexora-trusted-contacts";
 const LAST_SOS_PAYLOAD_KEY = "nexora-last-sos-payload";
+const EMERGENCY_NUMBERS_IN = {
+  primary: { number: "112", label: "ERSS National Emergency" },
+  roadHighway: { number: "1033", label: "NHAI Highway Helpline" },
+  ambulance: { number: "108", label: "Ambulance Service" },
+  womenSafety: { number: "1091", label: "Women Helpline" }
+};
+const HIGHWAY_KEYWORDS = ["highway", "expressway", "nh", "toll", "flyover", "bypass", "ring road"];
 
 const showcaseRoutes = {
   network: "network.html?showcase=1",
@@ -966,6 +973,33 @@ function routingPolicyForScenario(scenarioKey, urgency) {
   return base;
 }
 
+function isLikelyHighwayIncident(details = "") {
+  const lowered = String(details || "").toLowerCase();
+  return HIGHWAY_KEYWORDS.some(keyword => lowered.includes(keyword));
+}
+
+function buildHotlinePlan({ scenarioKey, details }) {
+  const channels = [EMERGENCY_NUMBERS_IN.primary];
+  const highwayCase = scenarioKey === "road_accident" && isLikelyHighwayIncident(details);
+
+  if (scenarioKey === "road_accident") {
+    channels.push(highwayCase ? EMERGENCY_NUMBERS_IN.roadHighway : EMERGENCY_NUMBERS_IN.ambulance);
+  }
+  if (scenarioKey === "attack" || scenarioKey === "cab_risk") {
+    channels.push(EMERGENCY_NUMBERS_IN.womenSafety);
+  }
+
+  const uniqueChannels = uniqueList(channels.map(channel => channel.number)).map(number =>
+    channels.find(channel => channel.number === number)
+  );
+  return {
+    primaryNumber: uniqueChannels[0]?.number || "112",
+    channels: uniqueChannels,
+    highwayCase,
+    summary: uniqueChannels.map(channel => `${channel.number} (${channel.label})`).join(" -> ")
+  };
+}
+
 function buildSosPayload({ scenarioKey, detailsText, context, location, contacts, triggerSource }) {
   const profile = getScenarioProfile(scenarioKey);
   const now = new Date();
@@ -974,6 +1008,10 @@ function buildSosPayload({ scenarioKey, detailsText, context, location, contacts
   const latitude = hasLocation ? Number(location.latitude) : null;
   const longitude = hasLocation ? Number(location.longitude) : null;
   const policy = routingPolicyForScenario(scenarioKey, context.urgency);
+  const hotlinePlan = buildHotlinePlan({
+    scenarioKey,
+    details: detailsText || profile.defaultDetails
+  });
   const dispatchPlan = buildAutoDispatchPlan(scenarioKey, context);
   const officialTargets = uniqueList([
     ...policy.officialTargets,
@@ -995,6 +1033,7 @@ function buildSosPayload({ scenarioKey, detailsText, context, location, contacts
     district: context.district,
     teams: profile.teams,
     officialTargets,
+    hotlinePlan,
     verifiedTargets,
     routingRationale: policy.rationale,
     dispatchPlan,
@@ -1031,6 +1070,7 @@ function buildPrivateSosMessage(payload) {
   return [
     `SOS ${payload.id}`,
     `Scenario: ${payload.scenarioLabel} | Urgency: ${payload.urgency.toUpperCase()} | Risk: ${payload.riskScore}/99 (${payload.riskBand})`,
+    `Official call order: ${payload.hotlinePlan?.summary || "112 (ERSS National Emergency)"}`,
     `Dispatch targets: ${payload.officialTargets.join(", ")}`,
     payload.dispatchSummary,
     `Exact-location dispatch: ${exactLine}`,
@@ -1263,9 +1303,13 @@ function tryOpenSmsDraft(contacts, text) {
   }
 }
 
-function tryCallEmergencyNumber() {
+function tryCallEmergencyNumber(number = "112") {
+  const clean = String(number || "").replace(/[^\d+]/g, "");
+  if (!clean) {
+    return false;
+  }
   try {
-    window.location.href = "tel:112";
+    window.location.href = `tel:${clean}`;
     return true;
   } catch (error) {
     return false;
@@ -1386,9 +1430,14 @@ function initializeEmergencyConsole() {
   const detailsField = document.getElementById("emergencyDetails");
   const runButton = document.getElementById("emergencyRunBtn");
   const callButton = document.getElementById("emergencyCallBtn");
+  const callRoadButton = document.getElementById("emergencyCallRoadBtn");
+  const callMedicalButton = document.getElementById("emergencyCallMedicalBtn");
+  const nearbyHelpButton = document.getElementById("emergencyNearbyHelpBtn");
+  const officialBlastButton = document.getElementById("emergencyOfficialBlastBtn");
   const smsButton = document.getElementById("emergencySmsBtn");
   const copyButton = document.getElementById("emergencyCopyBtn");
   const statusNode = document.getElementById("emergencyStatus");
+  const officialPlanNode = document.getElementById("emergencyOfficialPlan");
   const previewNode = document.getElementById("emergencyPayloadPreview");
 
   const contactInputs = [
@@ -1441,6 +1490,20 @@ function initializeEmergencyConsole() {
     tripGuardStatus.textContent = message;
   };
 
+  const renderOfficialPlan = payload => {
+    if (!officialPlanNode) {
+      return;
+    }
+    const plan = payload?.hotlinePlan || buildHotlinePlan({
+      scenarioKey: selectedScenario,
+      details: detailsField.value || getScenarioProfile(selectedScenario).defaultDetails
+    });
+    const note = plan.highwayCase
+      ? "Highway pattern detected: prioritize 1033 after 112."
+      : "Use 112 first, then medical/police support channel.";
+    officialPlanNode.textContent = `Official call order: ${plan.summary}. ${note}`;
+  };
+
   const renderPayloadPreview = payload => {
     if (!payload) {
       previewNode.textContent = "No SOS payload generated yet.";
@@ -1457,6 +1520,7 @@ function initializeEmergencyConsole() {
       `SOS ID: ${payload.id}`,
       `Scenario: ${payload.scenarioLabel} | Trigger: ${payload.triggerSource}`,
       `Urgency: ${payload.urgency.toUpperCase()} | Risk: ${payload.riskScore}/99 (${payload.riskBand})`,
+      `Official call order: ${payload.hotlinePlan?.summary || "112 (ERSS National Emergency)"}`,
       `Official routing: ${payload.officialTargets.join(" -> ")}`,
       `Dispatch summary: ${payload.dispatchSummary}`,
       `Exact responders: ${exactTargets || "none"}`,
@@ -1497,6 +1561,43 @@ function initializeEmergencyConsole() {
     return contacts;
   };
 
+  const updateEmergencyActionLabels = () => {
+    if (callRoadButton) {
+      const roadPlan = buildHotlinePlan({
+        scenarioKey: "road_accident",
+        details: detailsField.value || ""
+      });
+      callRoadButton.textContent = roadPlan.highwayCase ? "Call 1033 Highway" : "Call 108 Ambulance";
+    }
+    if (callButton) {
+      callButton.textContent = "Call 112 Now";
+    }
+  };
+
+  const openNearbyResponderSearch = async () => {
+    setStatus("Fetching location for nearby responders...", "warn");
+    const location = await resolveLiveLocation(7000);
+    const query =
+      selectedScenario === "road_accident"
+        ? "trauma hospital ambulance police station near me"
+        : "police station women help desk hospital near me";
+
+    let mapUrl = `https://www.google.com/maps/search/${encodeURIComponent(query)}`;
+    if (location?.ok) {
+      mapUrl = `https://www.google.com/maps/search/${encodeURIComponent(query)}/@${location.latitude},${location.longitude},15z`;
+    }
+    try {
+      const popup = window.open(mapUrl, "_blank", "noopener,noreferrer");
+      if (popup) {
+        setStatus("Opened nearby responder map search.", "good");
+      } else {
+        setStatus("Popup blocked. Open Google Maps manually and search nearby responders.", "warn");
+      }
+    } catch (error) {
+      setStatus("Unable to open map here. Search nearby hospitals/police in Maps.", "warn");
+    }
+  };
+
   const selectScenario = scenarioKey => {
     if (!emergencyScenarioProfiles[scenarioKey]) {
       return;
@@ -1506,6 +1607,8 @@ function initializeEmergencyConsole() {
     scenarioButtons.forEach(button => {
       button.classList.toggle("is-selected", button.dataset.sosScenario === selectedScenario);
     });
+    updateEmergencyActionLabels();
+    renderOfficialPlan(null);
   };
 
   const formatCountdown = ms => {
@@ -1575,6 +1678,7 @@ function initializeEmergencyConsole() {
       appendEmergencyReport(payload);
       latestPayload = payload;
       renderPayloadPreview(payload);
+      renderOfficialPlan(payload);
 
       const relayResult = await sendOfficialRelay({
         event: "sos_created",
@@ -1585,6 +1689,9 @@ function initializeEmergencyConsole() {
         ? await trySharePublicAlert(payload.publicMessage, triggerSource !== "trip_guard_timeout")
         : { ok: false, mode: "disabled" };
       const copied = await copyTextToClipboard(payload.privateMessage);
+      const shouldAutoDial = Boolean(options.autoDial);
+      const dialTarget = payload.hotlinePlan?.primaryNumber || "112";
+      const dialed = shouldAutoDial ? tryCallEmergencyNumber(dialTarget) : false;
 
       const trackingStarted = startLiveLocationWatch(
         payload,
@@ -1610,6 +1717,10 @@ function initializeEmergencyConsole() {
       }
       parts.push(payload.publicBroadcast ? `public alert ${publicResult.mode}` : "public alert skipped");
       parts.push(copied ? "private message copied" : "copy unavailable");
+      parts.push(`call order ${payload.hotlinePlan?.summary || "112"}`);
+      if (shouldAutoDial) {
+        parts.push(dialed ? `dialing ${dialTarget}` : `manual dial needed (${dialTarget})`);
+      }
       if (trackingStarted) {
         parts.push("continuous tracking started");
       }
@@ -1745,8 +1856,17 @@ function initializeEmergencyConsole() {
   scenarioButtons.forEach(button => {
     button.addEventListener("click", () => {
       selectScenario(button.dataset.sosScenario);
-      setStatus(`${getScenarioProfile(selectedScenario).label} selected. Tap One-Tap SOS.`, "good");
+      const plan = buildHotlinePlan({
+        scenarioKey: selectedScenario,
+        details: detailsField.value || ""
+      });
+      setStatus(`${getScenarioProfile(selectedScenario).label} selected. Call order: ${plan.summary}.`, "good");
     });
+  });
+
+  detailsField.addEventListener("input", () => {
+    updateEmergencyActionLabels();
+    renderOfficialPlan(null);
   });
 
   saveContactsButton?.addEventListener("click", () => {
@@ -1762,9 +1882,37 @@ function initializeEmergencyConsole() {
     runSosFlow("manual");
   });
 
+  officialBlastButton?.addEventListener("click", () => {
+    runSosFlow("manual", { autoDial: true });
+  });
+
   callButton.addEventListener("click", () => {
-    const ok = tryCallEmergencyNumber();
+    const ok = tryCallEmergencyNumber("112");
     setStatus(ok ? "Dialing 112 now..." : "Unable to open dialer here. Manually call 112.", ok ? "critical" : "warn");
+  });
+
+  callRoadButton?.addEventListener("click", () => {
+    const roadPlan = buildHotlinePlan({
+      scenarioKey: "road_accident",
+      details: detailsField.value || ""
+    });
+    const target = roadPlan.highwayCase ? "1033" : "108";
+    const ok = tryCallEmergencyNumber(target);
+    setStatus(
+      ok
+        ? `Dialing ${target} now (${roadPlan.highwayCase ? "NHAI highway" : "ambulance"}).`
+        : `Unable to open dialer. Manually call ${target}.`,
+      ok ? "critical" : "warn"
+    );
+  });
+
+  callMedicalButton?.addEventListener("click", () => {
+    const ok = tryCallEmergencyNumber("108");
+    setStatus(ok ? "Dialing 108 ambulance now..." : "Unable to open dialer. Manually call 108.", ok ? "critical" : "warn");
+  });
+
+  nearbyHelpButton?.addEventListener("click", () => {
+    openNearbyResponderSearch();
   });
 
   smsButton.addEventListener("click", async () => {
@@ -1817,6 +1965,8 @@ function initializeEmergencyConsole() {
   loadContactsToInputs();
   updateTripGuardCountdown();
   updateVoiceToggleUi();
+  updateEmergencyActionLabels();
+  renderOfficialPlan(latestPayload || null);
   if (latestPayload) {
     renderPayloadPreview(latestPayload);
     setStatus(`Last SOS loaded (${latestPayload.id}). Ready for instant trigger.`, "good");

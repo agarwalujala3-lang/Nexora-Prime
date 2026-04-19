@@ -839,6 +839,15 @@ a {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.emergency-actions .btn {
+  min-height: 2.5rem;
+}
+
+#emergencyOfficialBlastBtn {
+  border-color: rgba(255, 129, 110, 0.65);
+  background: linear-gradient(145deg, rgba(255, 116, 132, 0.36), rgba(255, 171, 99, 0.32));
+}
+
 .emergency-contact-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -1283,6 +1292,12 @@ body.theme-light .theme-toggle {
   color: #1d3d68;
   border-color: rgba(115, 154, 212, 0.34);
   background: linear-gradient(160deg, rgba(255, 255, 255, 0.88), rgba(230, 242, 255, 0.75));
+}
+
+body.theme-light #emergencyOfficialBlastBtn {
+  border-color: rgba(231, 122, 110, 0.55);
+  background: linear-gradient(150deg, rgba(255, 181, 180, 0.65), rgba(255, 216, 161, 0.58));
+  color: #6b2f2a;
 }
 
 body.theme-light .assistant-output {
